@@ -1,0 +1,29 @@
+<%- include ("./partials/nav.ejs") %> 
+
+<h2>Lista de hamburguesas</h2>
+
+<table>
+    <thead>
+        <tr>
+        <th>id</th>
+        <th>Nombre</th>
+        <th>Contenido</th>
+        <th>Precio</th>
+    </tr>
+    </thead>
+    <tbody>
+        <% hamburguesas.forEach(el => { %>
+            <tr>
+                <td><p><%= el.id %> </p></td>
+                <td><p><%= el.nombre %> </p></td>
+                <td><p><%= el.contenido %> </p></td>
+                <td><p><%= el.precio %> </p></td>
+                <td><a href="/hamburguesas/detalle/<%= el.id %> ">Ver detalle</a></td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
+
+
+
+
