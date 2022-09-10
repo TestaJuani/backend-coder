@@ -47,7 +47,12 @@ peticionesProd.eliminarProducto = async (req, res) => {
   }
   const eliminar = productos.filter((e) => e.id !== id);
   productos = eliminar;
-  res.status(200).json(productos);
+  res.status(200).json(`Se elimino el producto con id: ${id}`);
+};
+
+peticionesProd.recuperarProducto = (id) => {
+  const producto = productos.find((p) => p.id === id);
+  return producto;
 };
 
 module.exports = peticionesProd;
