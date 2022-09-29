@@ -1,53 +1,81 @@
 const peticionesProd = {};
-let productos = [];
+const prodModel = require("../models/productos");
 
 peticionesProd.agregarProducto = async (req, res) => {
-  const producto = await req.body;
-  if (!producto.nombre) {
-    res.status(400).json({ msg: "El nombre del producto es obligatorio" });
+  const {
+    NombreHamburguesa,
+    Contenido,
+    PrecioSimple,
+    PrecioDoble,
+    PrecioTriple,
+  } = req.body;
+  const nuevoProducto = new prodModel({
+    NombreHamburguesa,
+    Contenido,
+    PrecioSimple,
+    PrecioDoble,
+    PrecioTriple,
+  });
+  if (!nuevoProducto.NombreHamburguesa) {
+    return res
+      .status(400)
+      .json({ msg: "El nombre de la hamburguesa es obligatorio" });
   }
-  if (!producto.precio) {
-    res.status(400).json({ msg: "El precio del producto es obligatorio" });
+  if (!nuevoProducto.Contenido) {
+    return res
+      .status(400)
+      .json({ msg: "El contenido de la hamburguesa es obligatorio" });
   }
-  if (!producto.id) {
-    res.status(400).json({ msg: "El id del producto es obligatorio" });
+  if (!nuevoProducto.PrecioSimple) {
+    return res
+      .status(400)
+      .json({ msg: "El precio simple de la hamburguesa es obligatorio" });
   }
-  productos.push(producto);
-  res.status(200).json(producto);
+  if (!nuevoProducto.PrecioDoble) {
+    return res
+      .status(400)
+      .json({ msg: "El precio doble de la hamburguesa es obligatorio" });
+  }
+  if (!nuevoProducto.PrecioTriple) {
+    return res
+      .status(400)
+      .json({ msg: "El precio triple de la hamburguesa es obligatorio" });
+  }
+  await nuevoProducto.save();
+  res.json({ msg: "Note save" });
 };
 
 peticionesProd.verProductos = async (req, res) => {
-  return await res.status(200).json(productos);
+  const productos = await prodModel.find();
+  res.json(productos);
 };
 
 peticionesProd.verProducto = async (req, res) => {
-  const id = await req.params.id;
-  const encontrar = productos.find((p) => p.id === id);
-  if (!encontrar) {
-    return res.status(400).json({ msg: "El producto no existe" });
-  }
-  const mostrar = productos.filter((p) => p.id === id);
-  res.status(200).json(mostrar);
+  const id = await prodModel.findById(req.params.id);
+  res.status(200).json(id);
 };
 
 peticionesProd.editarProducto = async (req, res) => {
-  const id = await req.params.id;
-  const encontrar = productos.find((p) => p.id === id);
-  if (!encontrar) {
-    return res.status(400).json({ msg: "El producto no existe" });
-  }
-  res.status(200).json(productos.filter((p) => p.id === id));
+  const {
+    NombreHamburguesa,
+    Contenido,
+    PrecioSimple,
+    PrecioDoble,
+    PrecioTriple,
+  } = req.body;
+  await prodModel.findByIdAndUpdate(req.params.id, {
+    NombreHamburguesa,
+    Contenido,
+    PrecioSimple,
+    PrecioDoble,
+    PrecioTriple,
+  });
+  res.json({ message: "Note Updated" });
 };
 
 peticionesProd.eliminarProducto = async (req, res) => {
-  const id = await req.params.id;
-  const encontrar = productos.find((p) => p.id === id);
-  if (!encontrar) {
-    return res.status(400).json("NaN");
-  }
-  const eliminar = productos.filter((e) => e.id !== id);
-  productos = eliminar;
-  res.status(200).json(`Se elimino el producto con id: ${id}`);
+  await prodModel.findByIdAndUpdate(req.params.id);
+  res.json(`Producto eliminado`);
 };
 
 peticionesProd.recuperarProducto = (id) => {
