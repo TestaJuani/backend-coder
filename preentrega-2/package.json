@@ -1,0 +1,18 @@
+{
+  "type":"module",
+  "name": "preentrega-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongodb": "^4.10.0",
+    "mongoose": "^6.6.2"
+  }
+}
