@@ -1,0 +1,16 @@
+{
+  "name": "loggersgzipayp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "fork": "node server.js 8081 FORK",
+    "cluster": "node server.js 8081 CLUSTER"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
