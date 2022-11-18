@@ -3,6 +3,7 @@ const app = express();
 
 app.set("port", process.env.PORT || 4000);
 
+app.use(express.static('public'))
 app.use(express.json());
 app.set("views", "./views");
 app.set("view engine", "ejs");
