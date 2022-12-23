@@ -1,0 +1,53 @@
+mutation {
+  createPersona(datos: {
+    nombre: "juani",
+    edad: 21
+    direccion: {
+      calle: "cordoba"
+      numero: 123
+    }
+  }) {
+    id
+  }
+}
+
+# mutation { createPersona(datos: { nombre: \"juani\", edad: 22, direccion: { calle: \"cordoba\" numero: 123 } }) { id }}
+
+query {
+  getPersonas {
+    id
+    nombre
+    edad
+  }
+}
+
+# query { getPersonas { id nombre edad }}
+
+query { 
+  getPersonas(campo: "edad", valor: "20") {
+    id
+    nombre
+    edad
+  }
+}
+
+# query { getPersonas(campo: \"edad\", valor: \"20\") { id nombre edad }}
+
+mutation {
+  updatePersona(id: "xxxxxxxxxxxxx", datos: {
+    nombre: "juanito",
+    edad: 21
+  }) {
+    id
+    nombre
+    edad
+    direccion { calle }
+  }
+}
+
+mutation {
+  deletePersona(id: "xxxxxxxxxxxxx") {
+    id
+    nombre
+    edad
+  }
